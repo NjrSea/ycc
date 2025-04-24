@@ -1,15 +1,16 @@
 #!/bin/bash
 
 ycc=../target/debug/ycc
-set -e
+# set -e DO NOT add this 
 
 try() {
-    rm -rf tmp.s
+    # rm -rf tmp.s
     
     expected="$1"
     input="$2"
+    # $ycc "$input" > tmp.s
     $ycc "$input" > tmp.s
-    gcc -static -o tmp tmp.s
+    clang -o tmp tmp.s
     ./tmp
     actual="$?"
 
@@ -20,6 +21,7 @@ try() {
 }
 
 echo "=================== build ==================== "
+cargo clean 
 cargo build 
 
 echo "===================  test =================== "

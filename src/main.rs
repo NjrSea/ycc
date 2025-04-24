@@ -12,7 +12,11 @@ fn main() {
     }
 
     let input = &args[1];
-    println!("{}", input);
+    println!("      .section __TEXT,__text");
+    println!("      .global _main");
+    println!("_main:");
+    println!("      mov w0, #{}", input);
+    println!("      ret");
 }
 
 
