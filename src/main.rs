@@ -3,18 +3,24 @@
 // Reference: https://github.com/rui314/9cc
 use std::env;
 
+mod lexer;
+
 fn main() {
     let args: Vec<String> = env::args().collect();
-    
+
     if args.len() != 2 {
         eprintln!("Usage: {} <input>", args[0]);
         std::process::exit(1);
     }
 
     let input = &args[1];
+    // Print the prologue
     println!("      .section __TEXT,__text");
     println!("      .global _main");
     println!("_main:");
+
+
+
     println!("      mov w0, #{}", input);
     println!("      ret");
 }
