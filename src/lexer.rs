@@ -1,18 +1,36 @@
-use std::{ffi::FromVecWithNulError, fs, string};
+use std::{f32::DIGITS, ffi::FromVecWithNulError, fs, string};
 
-#[derive(Clone)]
+#[derive(Debug)]
+#[derive(Clone, PartialEq)]
+pub enum BinaryOpKind {
+    Add,
+    Minus,
+    Multi,
+    Div,
+}
+
+#[derive(Debug)]
+#[derive(Clone, PartialEq)]
 pub enum TokenKind {
     None, 
     IntNumber(i64),
     FloatNumber(f64),
+    BinaryOp(BinaryOpKind),
     EOF,
 }
 
-#[derive(Clone)]
+#[derive(Debug)]
+#[derive(Clone, PartialEq)]
 pub struct Token {
     kind: TokenKind,
     line: i64,
     str: String, // TODO: wangya
+}
+
+impl Token  {
+    pub fn new(kind: TokenKind, line: i64, str: String ) -> Self {
+        Token { kind, line, str }
+    }   
 }
 
 pub struct Lexer {
@@ -40,8 +58,14 @@ impl Lexer {
     pub fn tokenize(self) -> Vec<Token> {
         let mut tks: Vec<Token> = Vec::new();
 
+        
         for (i, c) in self.source_code.char_indices() {
-            
+            if let Some(digit) = c.to_digit(10) {
+                let kind = TokenKind::IntNumber(digit as i64);
+                let token = Token::new(kind, 1, self.source_code[i..i+1].to_string());
+                tks.push(token);    
+            }
+            println!("token {} :{}", i, c.to_string());
         }
 
         tks

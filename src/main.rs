@@ -3,6 +3,7 @@
 // Reference: https://github.com/rui314/9cc
 use std::env;
 
+use lexer::{Lexer, Token};
 mod lexer;
 
 fn main() {
@@ -18,13 +19,20 @@ fn main() {
     println!("      .section __TEXT,__text");
     println!("      .global _main");
     println!("_main:");
-
-
-
     println!("      mov w0, #{}", input);
     println!("      ret");
 }
 
+
+
+#[test]
+fn lexer_test_1() {
+   let lexer = Lexer::new("5 + 20 - 4".to_string());
+   let tokens = lexer.tokenize(); 
+   let token1 = Token::new(lexer::TokenKind::IntNumber(5), 1, "5".to_string());
+   let token1_vec = tokens.first().unwrap().clone();
+   assert_eq!(token1, token1_vec);
+}
 
 // #[test]
 // fn compare_with_clang_output() {
