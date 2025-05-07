@@ -1,7 +1,7 @@
 pub type Index = usize;
 
 #[derive(Debug)]
-#[derive(Clone, PartialEq)]
+#[derive(Copy, Clone, PartialEq)]
 pub enum BinaryOpKind {
     Add,
     Minus,
@@ -24,7 +24,7 @@ impl BinaryOpKind {
 }
 
 #[derive(Debug)]
-#[derive(Clone, PartialEq)]
+#[derive(Copy, Clone, PartialEq)]
 pub enum TokenKind {
     None, 
     BinaryOp(BinaryOpKind),
@@ -34,7 +34,7 @@ pub enum TokenKind {
 }
 
 #[derive(Debug)]
-#[derive(Clone, PartialEq)]
+#[derive(Copy, Clone, PartialEq)]
 pub enum LiteralKind {
     IntNumber(i64),
     FloatNumber(f64),
@@ -73,9 +73,9 @@ impl Position {
 #[derive(Debug)]
 #[derive(Clone, PartialEq)]
 pub struct Token {
-    kind: TokenKind,
-    pos: Position,
-    str: String, // TODO: wangya
+    pub kind: TokenKind,
+    pub pos: Position,
+    pub str: String, // TODO: wangya
 }
 
 impl Token  {

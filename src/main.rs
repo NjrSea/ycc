@@ -5,6 +5,7 @@ use std::env;
 
 use lexer::{Lexer, Position, Token};
 mod lexer;
+mod parser;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
