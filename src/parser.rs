@@ -90,4 +90,9 @@ impl Parser {
         "".to_string()
     }
 
+    fn error(&self, msg: &str) {
+        let token = self.current_token_ref();
+        panic!("Error at line {}, column {}: {}", token.pos.line, token.pos.column_start, msg);
+    }
+
 }

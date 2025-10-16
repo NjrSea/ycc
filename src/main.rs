@@ -25,7 +25,7 @@ fn main() {
 }
 
 #[test]
-fn lexer_test_1() {
+fn lexer_test_tokenization_1() {
     // 0123456789
     // 5 + 20 - 4
     let lexer = Lexer::new("5 + 20 -   4".to_string());
