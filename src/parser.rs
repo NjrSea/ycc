@@ -2,7 +2,10 @@ use crate::lexer::*;
 use crate::parser::NodeKind::number;
 
 
-const ARM_REGISTERS: [&str; 31] = ["x0",  "x1", "x2", "x3", "x4", "x5", "x6", "x7", "x8", "x9", "x10", "x11", "x12", "x13", "x14", "x15", "x16", "x17", "x18", "x19",  "x20", "x21", "x22", "x23", "x24", "x25", "x26", "x27", "x28", "x29", "X30"];
+const ARM_REGISTERS: [&str; 31] =
+    ["x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7", "x8", "x9", "x10", "x11", "x12", "x13", "x14",
+    "x15", "x16", "x17", "x18", "x19",  "x20", "x21", "x22", "x23", "x24", "x25", "x26", "x27",
+    "x28", "x29", "X30"];
 
 #[derive(Copy, Clone)]
 enum NodeKind {
@@ -34,12 +37,26 @@ impl Node {
 
 }
 
-struct Parser {
+pub(crate) struct Parser {
     tokens: Vec<Token>,
     token_index: Index,
 }
 
 impl Parser {
+
+    pub(crate) fn new() -> Self {
+        Parser {
+            tokens: [].to_vec(),
+            token_index: 0,
+        }
+    }
+
+   pub(crate) fn parse(&mut self) -> String {
+        // build ast
+        let ast: Node = self.expression();
+        // gen code
+        self.code_gen(ast)
+    }
 
     fn current_token_ref(&self) -> &Token {
         &self.tokens[self.token_index]
@@ -85,7 +102,7 @@ impl Parser {
         root
     }
 
-    fn code_gen(node: Node) -> String { // TODO: String
+    fn code_gen(&mut self, node: Node) -> String { // TODO: String
 
         "".to_string()
     }

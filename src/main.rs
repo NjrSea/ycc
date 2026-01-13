@@ -16,6 +16,7 @@ fn main() {
     }
 
     let input = &args[1];
+
     // Print the prologue
     println!("      .section __TEXT,__text");
     println!("      .global _main");
@@ -98,6 +99,13 @@ fn lexer_test_1() {
     let token6 = Token::eof();
     let token6_vec = tokens.get(5).unwrap().clone();
     assert_eq!(token6, token6_vec);
+}
+
+#[test]
+fn parser_test_1() {
+    let mut parser = parser::Parser::new();
+    let output = parser.parse();
+    assert_eq!(output, "".to_string());
 }
 
 // #[test]
